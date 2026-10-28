@@ -17,6 +17,10 @@ class Rectangle:
         ])
         return result
 
+    def contains(self, point: Point2D, tolerance: float = 0.0) -> bool:
+        return self._is_in_interval(point.x, self._lower_left.x - tolerance, self._lower_left.x + self._dx + tolerance) \
+            and self._is_in_interval(point.y, self._lower_left.y - tolerance, self._lower_left.y + self._dy + tolerance)
+
     @property
     def lower_left(self) -> Point2D:
         return self._lower_left
@@ -25,9 +29,6 @@ class Rectangle:
     def upper_right(self) -> Point2D:
         return self.corner(3)
 
-    def contains(self, point: Point2D) -> bool:
-        return self._is_in_interval(point.x, self._lower_left.x, self._lower_left.x + self._dx) \
-            and self._is_in_interval(point.y, self._lower_left.y, self._lower_left.y + self._dy)
 
     def _is_idx_on_upper_edge(self, i: int) -> bool:
         return i in [2, 3]
